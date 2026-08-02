@@ -23,20 +23,16 @@ More cards are listed on the Prava Test Cards page. They never move real money o
 
 Passkeys (Touch ID / Face ID) are still real WebAuthn prompts in sandbox.
 
-## Prava Pay MCP (John CEO Pay path)
+## Prava Pay MCP (this module)
 
 MCP is **free to integrate** with per-user OAuth (see CREDENTIALS.md). There is **no separate
 sandbox MCP host** - agent-linked payments use live payment rails. SDK sandbox (above) is a
 different path and is not a substitute for the MCP demo.
 
-John CEO Pay stays on MCP for Telegram. SDK/embedded without a separate Prava login would need
-Prava production approval - out of scope.
-
 | Env | Recommendation |
 |-----|----------------|
 | Unit tests / `npm test` / `npm run demo` | Mocked upstream only (offline; not a real payment) |
-| Localhost / staging with MCP | Per-user OAuth link + tiny amounts / spend limits |
-| Production John CEO | Keep `PRAVA_PAY_ENABLED=false` |
+| Standalone with MCP | Per-user OAuth link + tiny amounts / spend limits |
 
 ## Env for this module
 
