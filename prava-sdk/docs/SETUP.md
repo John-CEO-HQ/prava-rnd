@@ -4,22 +4,23 @@
 
 1. Sign up at https://dashboard.prava.space
 2. Create an API key (sandbox by default): `pk_test_*` + `sk_test_*`
-3. Add your control-plane domain to allowed domains if the dashboard requires it
-   for callbacks (staging HTTPS URL).
+3. Add your public HTTPS domain to allowed domains if the dashboard requires it
+   for callbacks.
 
-## 2. Env (control plane only)
+## 2. Env (standalone)
 
 ```bash
-PRAVA_SDK_ENABLED=true
 PRAVA_SECRET_KEY=sk_test_...
 PRAVA_API_URL=https://sandbox.api.prava.space
-# Optional override; default is {CONTROL_PLANE_BASE_URL}/api/mcp/prava-sdk
-# PRAVA_PUBLIC_BASE_URL=https://your-staging.example/api/mcp/prava-sdk
+# Required for npm run smoke when Prava needs an https callback_url
+PRAVA_PUBLIC_BASE_URL=https://your-public-host.example/api/mcp/prava-sdk
+# Optional listen port (default 8792)
+PORT=8792
 ```
 
-Keep `PRAVA_PAY_ENABLED` unset/false for the hackathon demo (live MCP off).
+Without `PRAVA_SECRET_KEY`, `npm start` runs in mock mode (offline only).
 
-Never put `PRAVA_SECRET_KEY` on a user VM.
+Never commit secret keys. Keep `sk_test_*` in env vars or a local `.env` file only.
 
 ## 3. Test card (sandbox only)
 
@@ -32,20 +33,11 @@ Never put `PRAVA_SECRET_KEY` on a user VM.
 
 Docs: https://docs.prava.space/api-reference/test-cards
 
-## 4. Telegram demo
-
-1. Apply and Rebuild so cloud-init registers `mcp_servers.prava_sdk`.
-2. Ask John: "What can I buy with John CEO Pay?" (demo catalog) or
-   "Pay Acme Consulting 20 USD for July invoice" (typed bill).
-3. Confirm merchant + total in chat.
-4. Open `payment_url`, enter test card + OTP + passkey.
-5. Return to Telegram; John reports order id after `prava_sdk_get_checkout_status`.
-
 ## Callback URL
 
 Hosted checkout redirects to:
 
 `{PRAVA_PUBLIC_BASE_URL}/callback?clientId=...&pending=...`
 
-Prava requires `https` for `callback_url` in production-like hosts. Use staging
-HTTPS for real sandbox E2E; local mock mode does not call Prava.
+Prava requires `https` for `callback_url` in production-like hosts. Use a public
+HTTPS base for real sandbox E2E (`npm run smoke`); local mock mode does not call Prava.
