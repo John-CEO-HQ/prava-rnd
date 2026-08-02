@@ -1,0 +1,30 @@
+{
+  "name": "prava-sdk",
+  "version": "0.1.0",
+  "description": "Prava hosted REST/API broker for John CEO Pay. Standalone-demonstrable; also mounts in-process into John CEO.",
+  "author": "JHELY GLOBAL SL",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "start": "tsx src/standalone.ts",
+    "dev": "tsx watch src/standalone.ts",
+    "demo": "tsx demo/cli.ts",
+    "smoke": "tsx demo/smoke.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "tsx --test test/**/*.test.ts"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^22.7.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.3"
+  }
+}

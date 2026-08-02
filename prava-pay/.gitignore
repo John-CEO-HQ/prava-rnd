@@ -1,0 +1,12 @@
+node_modules
+dist
+*.tsbuildinfo
+*.log
+.DS_Store
+
+# local token store + secrets
+.prava-tokens
+.env
+.env.*
+
+coverage
